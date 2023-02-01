@@ -1,5 +1,8 @@
 package com.Yao.domain;
 
+import com.Yao.commonSensitive.mySensitive.CommonSensitive;
+import com.Yao.commonSensitive.mySensitive.MyEmailSensitive;
+import com.Yao.commonSensitive.myStrategy.MyCustomizeNameStrategy;
 import com.Yao.handler.MD5TypeHandler;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,6 +23,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_user")
+@Accessors(chain = true)
 public class User implements Serializable {
 
     private static final long serialVersionUID = -40356785423868312L;
@@ -30,6 +35,7 @@ public class User implements Serializable {
     /**
      * 用户名
      */
+    @CommonSensitive(strategy = MyCustomizeNameStrategy.class)
     private String userName;
     /**
      * 昵称
@@ -48,10 +54,12 @@ public class User implements Serializable {
     /**
      * 邮箱
      */
+    @MyEmailSensitive
     private String email;
     /**
      * 手机号
      */
+    @CommonSensitive
     private String phonenumber;
     /**
      * 用户性别（0男，1女，2未知）

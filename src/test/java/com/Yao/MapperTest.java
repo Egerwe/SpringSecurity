@@ -28,7 +28,8 @@ public class MapperTest {
 
     @Test
     public void testUserMapper() {
-
+        User user = new User().setUserName("Xu").setPassword("12345");
+        userMapper.insert(user);
     }
 
     @Test
